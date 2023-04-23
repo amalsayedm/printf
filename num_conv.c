@@ -17,7 +17,9 @@ unsigned int link_di(container_s *output, va_list args,
 	unsigned int turn = 0, count = 0;
 	char zero, space = ' ', neg = '-', plus = '+';
 
-	(len == LONG) ? d = va_arg(args, long int) :
+	if(len == LONG)
+		d = va_arg(args, long int);
+	else
 		d = va_arg(args, int);
 	if (len == SHORT)
 		d = (short)d;
@@ -26,9 +28,13 @@ unsigned int link_di(container_s *output, va_list args,
 		turn += _copy(output, &space, 1);
 	if (prec <= 0 && NEG_FLAG == 0)
 	{
-		(d == LONG_MIN) ? count += 19 :
+		if (d == LONG_MIN)
+			count += 19;
+		else
+		{
 			for (copy = (d < 0) ? -d : d; copy > 0; copy /= 10)
 				count++;
+		}
 		count += (d == 0) ? 1 : 0;
 		count += (d < 0) ? 1 : 0;
 		count += (PLUS_FLAG == 1 && d >= 0) ? 1 : 0;
