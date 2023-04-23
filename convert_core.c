@@ -1,6 +1,6 @@
 #include "main.h"
 
-unsigned int link_sbase(container_s  *output, long int num, char *base,
+unsigned int link_sbase(container_s * output, long int num, char *base,
 		unsigned char flags, int wid, int prec);
 unsigned int link_ubase(container_s *output,
 		unsigned long int num, char *base,
