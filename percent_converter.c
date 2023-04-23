@@ -1,6 +1,6 @@
 #include "main.h"
 
-unsigned int link_c(va_list args, container_s * output,
+unsigned int link_c(va_list args, container_s  *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
 unsigned int link_percent(va_list args, container_s *output,
 		unsigned char flags, int wid, int prec, unsigned char len);
