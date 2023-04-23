@@ -148,7 +148,7 @@ unsigned int (*handle_specifiers(const char *specifier))
 	(va_list, container_s *, unsigned char, int, int, unsigned char)
 {
 	int i;
-	linker_l linkers[] = {
+	linker_l linker[] = {
 		{'c', link_c},
 		{'s', link_s},
 		{'d', link_di},
