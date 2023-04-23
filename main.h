@@ -6,6 +6,20 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define PLUS 1
+#define SPACE 2
+#define HASH 4
+#define ZERO 8
+#define NEG 16
+#define PLUS_FLAG (flags & 1)
+#define SPACE_FLAG ((flags >> 1) & 1)
+#define HASH_FLAG ((flags >> 2) & 1)
+#define ZERO_FLAG ((flags >> 3) & 1)
+#define NEG_FLAG ((flags >> 4) & 1)
+
+#define SHORT 1
+#define LONG 2
+
 /**
  * struct container - astruct.
  * @container: pointer to astring
@@ -18,6 +32,17 @@ typedef struct container
 	char *start;
 	unsigned int size;
 } container_s;
+
+/**
+ * struct flag_s -flags struct.
+ * @flag: aflag.
+ * @value: The value of the flag.
+ */
+typedef struct flag_s
+{
+	unsigned char flag;
+	unsigned char value;
+} array_f;
 
 /**
  * struct linker - A linker struct.
@@ -66,10 +91,10 @@ unsigned int link_R(container_s *string, va_list args,
 
 container_s *init_buffer(void);
 void dealocate_container(container_s *container);
-unsigned int _memcpy(container_s *container, const char *src, unsigned int n);
-unsigned int convert_sbase(container_s *container, long int no, char *base,
+unsigned int _copy(container_s *container, const char *src, unsigned int n);
+unsigned int linker_sbase(container_s *container, long int no, char *base,
 		unsigned char flags, int wid, int prc);
-unsigned int convert_ubase(container_s *container, unsigned long int no,
+unsigned int linker_ubase(container_s *container, unsigned long int no,
 char *base, unsigned char flags, int wid, int prc);
 
 /**/
@@ -81,5 +106,12 @@ int handleprec(va_list args, const char *modifier, char *index);
 unsigned int (*handle_specifiers(const char *specifier))(va_list,
 container_s *, unsigned char, int, int, unsigned char);
 
+
+unsigned int get_width(container_s *output, unsigned int printed,
+		unsigned char flags, int wid);
+unsigned int getstring_width(container_s *output,
+		unsigned char flags, int wid, int prec, int size);
+unsigned int getneg_width(container_s *output, unsigned int printed,
+		unsigned char flags, int wid);
 
 #endif
