@@ -166,10 +166,10 @@ unsigned int (*handle_specifiers(const char *specifier))
 		{0, NULL}
 	};
 
-	for (i = 0; linker[i].func; i++)
+	for (i = 0; linkers[i]._func; i++)
 	{
-		if (linker[i].specifier == *specifier)
-			return (linker[i].func);
+		if (linkers[i].specifier == *specifier)
+			return (linkers[i]._func);
 	}
 	return (NULL);
 }

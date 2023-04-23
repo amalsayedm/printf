@@ -1,12 +1,5 @@
 #include "main.h"
 
-unsigned int link_c(va_list args, container_s  * output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_percent(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_p(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-
 /**
  * link_c - Converts an argument to an unsigned char and stores it
  * @args: argument to be converted
@@ -17,7 +10,7 @@ unsigned int link_p(va_list args, container_s *output,
  * @output: character array
  * Return: The number of bytes stored
  */
-unsigned int link_c(va_list args, container_s *output,
+unsigned int link_c(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char c;
@@ -29,7 +22,7 @@ unsigned int link_c(va_list args, container_s *output,
 	c = va_arg(args, int);
 
 	turn += get_width(output, turn, flags, wid);
-	turn += _memcpy(output, &c, 1);
+	turn += _copy(output, &c, 1);
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);
 }
@@ -45,7 +38,7 @@ unsigned int link_c(va_list args, container_s *output,
  * Return: The number of bytes stored
  */
 
-unsigned int link_percent(va_list args, container_s *output,
+unsigned int link_percent(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char percent = '%';
@@ -55,8 +48,8 @@ unsigned int link_percent(va_list args, container_s *output,
 	(void)prec;
 	(void)len;
 
-	turn += get_width(output, turnn, flags, wid);
-	turn += _memcpy(output, &percent, 1);
+	turn += get_width(output, turn, flags, wid);
+	turn += _copy(output, &percent, 1);
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);
 }
@@ -71,7 +64,7 @@ unsigned int link_percent(va_list args, container_s *output,
  * @output: character array
  * Return: The number of bytes stored
  */
-unsigned int link_p(va_list args, container_s *output,
+unsigned int link_p(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *empty = "(nil)";
@@ -82,9 +75,9 @@ unsigned int link_p(va_list args, container_s *output,
 
 	address = va_arg(args, unsigned long int);
 	if (address == '\0')
-		return (_memcpy(output, empty, 5));
+		return (_copy(output, empty, 5));
 	flags |= 32;
-	turn += link_ubase(output, address, "0123456789abcdef",
+	turn += linker_ubase(output, address, "0123456789abcdef",
 			flags, wid, prec);
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);

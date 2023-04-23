@@ -25,7 +25,7 @@ int _printf(const char *format, ...)
 	container_s *output;
 	va_list args;
 char tmp;
-	int ret, i, wid, prec, ret = 0;
+	int i, wid, prec, ret = 0;
 	unsigned char flags, len = 0;
 	unsigned int (*f)(container_s *, va_list,
 unsigned char, int, int, unsigned char);
@@ -44,7 +44,8 @@ unsigned char, int, int, unsigned char);
 			wid = handlewidth(args, format + i + tmp + 1, &tmp);
 			prec = handleprec(args, format + i + tmp + 1, &tmp);
 			len = handlelen(format + i + tmp + 1, &tmp);
-			if (handle_specifiers(format + i + tmp + 1) != NULL)
+			f = handle_specifiers(format + i + tmp + 1);
+			if (f != NULL)
 			{
 				i += tmp + 1;
 				ret += f(output, args, flags, wid, prec, len);
@@ -56,7 +57,7 @@ unsigned char, int, int, unsigned char);
 				break;
 			}
 		}
-		ret += _memcpy(output, (format + i), 1);
+		ret += _copy(output, (format + i), 1);
 		i += (len != 0) ? 1 : 0;
 	}
 	deallocate(args, output);

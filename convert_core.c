@@ -32,16 +32,16 @@ unsigned int link_sbase(container_s *output, long int num, char *base,
 	else
 	{
 		for (; prec > 1; prec--, wid--)
-			turn += _memcpy(output, &zero, 1);
+			turn += _copy(output, &zero, 1);
 		if (NEG_FLAG == 0)
 		{
 			zero = (ZERO_FLAG == 1) ? '0' : ' ';
 			for (; wid > 1; wid--)
-				turn += _memcpy(output, &zero, 1);
+				turn += _copy(output, &zero, 1);
 		}
 	}
 	digit = base[(num < 0 ? -1 : 1) * (num % size)];
-	_memcpy(output, &digit, 1);
+	_copy(output, &digit, 1);
 	return (turn);
 }
 
@@ -74,17 +74,17 @@ unsigned int link_ubase(container_s *output, unsigned long int num, char *base,
 			prec -= 2;
 		}
 		for (; prec > 1; prec--, wid--)
-			turn += _memcpy(output, &zero, 1);
+			turn += _copy(output, &zero, 1);
 		if (NEG_FLAG == 0)
 		{
 			zero = (ZERO_FLAG == 1) ? '0' : ' ';
 			for (; wid > 1; wid--)
-				turn += _memcpy(output, &zero, 1);
+				turn += _copy(output, &zero, 1);
 		}
 		if (((flags >> 5) & 1) == 1)
-			turn += _memcpy(output, XO, 2);
+			turn += _copy(output, XO, 2);
 	}
 	digit = base[(num % size)];
-	_memcpy(output, &digit, 1);
+	_copy(output, &digit, 1);
 	return (turn);
 }

@@ -1,15 +1,5 @@
 #include "main.h"
 
-
-unsigned int link_s(va_list args, container_s * output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_S(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_r(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_R(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-
 /**
  * link_s - Converts a string and
  * @args: argument
@@ -20,7 +10,7 @@ unsigned int link_R(va_list args, container_s *output,
  * @output: A container_s struct containing a character array.
  * Return: The number of bytes stored to the buffer.
  */
-unsigned int link_s(va_list args, container_s *output,
+unsigned int link_s(container_s *output, va_list args,
 			unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *sg, *empty = "(null)";
@@ -31,14 +21,14 @@ unsigned int link_s(va_list args, container_s *output,
 
 	sg = va_arg(args, char *);
 	if (sg == NULL)
-		return (_memcpy(output, empty, 6));
+		return (_copy(output, empty, 6));
 	for (size = 0; *(sg + size);)
 		size++;
 	turn += getstring_width(output, flags, wid, prec, size);
 	prec = (prec == -1) ? size : prec;
 	while (*sg != '\0' && prec > 0)
 	{
-		turn += _memcpy(output, sg, 1);
+		turn += _copy(output, sg, 1);
 		prec--;
 		sg++;
 	}
@@ -57,7 +47,7 @@ unsigned int link_s(va_list args, container_s *output,
  * Return: The number of bytes stored.
  */
 
-unsigned int link_S(va_list args, container_s *output,
+unsigned int link_S(container_s *output, va_list args,
 			unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *sg, *empty = "(null)", *symb = "\\x", zero = '0';
@@ -67,7 +57,7 @@ unsigned int link_S(va_list args, container_s *output,
 	(void)len;
 	sg = va_arg(args, char *);
 	if (sg == NULL)
-		return (_memcpy(output, empty, 6));
+		return (_copy(output, empty, 6));
 
 	for (size = 0; sg[size];)
 		size++;
@@ -78,14 +68,14 @@ unsigned int link_S(va_list args, container_s *output,
 	{
 		if (*(sg + index) < 32 || *(sg + index) >= 127)
 		{
-			turn += _memcpy(output, symb, 2);
+			turn += _copy(output, symb, 2);
 			if (*(sg + index) < 16)
-				turn += _memcpy(output, &zero, 1);
-			turn += link_ubase(output, *(sg + index),
+				turn += _copy(output, &zero, 1);
+			turn += linker_ubase(output, *(sg + index),
 					"0123456789ABCDEF", flags, 0, 0);
 			continue;
 		}
-		turn += _memcpy(output, (sg + index), 1);
+		turn += _copy(output, (sg + index), 1);
 	}
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);
@@ -102,7 +92,7 @@ unsigned int link_S(va_list args, container_s *output,
  * Return: The number of bytes stored
  */
 
-unsigned int link_r(va_list args, container_s *output,
+unsigned int link_r(container_s *output, va_list args, 
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *sg, *empty = "(null)";
@@ -114,7 +104,7 @@ unsigned int link_r(va_list args, container_s *output,
 
 	sg = va_arg(args, char *);
 	if (sg == NULL)
-		return (_memcpy(output, empty, 6));
+		return (_copy(output, empty, 6));
 	for (size = 0; *(sg + size);)
 		size++;
 	turn += getstring_width(output, flags, wid, prec, size);
@@ -122,7 +112,7 @@ unsigned int link_r(va_list args, container_s *output,
 	prec = (prec == -1) ? size : prec;
 	for (i = 0; end >= 0 && i < prec; i++)
 	{
-		turn += _memcpy(output, (sg + end), 1);
+		turn += _copy(output, (sg + end), 1);
 		end--;
 	}
 	turn += getneg_width(output, turn, flags, wid);
@@ -140,7 +130,7 @@ unsigned int link_r(va_list args, container_s *output,
  * Return: The number of bytes stored
  */
 
-unsigned int link_R(va_list args, container_s *output,
+unsigned int link_R(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *abc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -153,7 +143,7 @@ unsigned int link_R(va_list args, container_s *output,
 	(void)len;
 	sg = va_arg(args, char *);
 	if (sg == NULL)
-		return (_memcpy(output, empty, 6));
+		return (_copy(output, empty, 6));
 	for (size = 0; *(sg + size);)
 		size++;
 	turn += getstring_width(output, flags, wid, prec, size);
@@ -164,10 +154,10 @@ unsigned int link_R(va_list args, container_s *output,
 		{
 			if (*(sg + i) == *(abc + j))
 			{
-				turn += _memcpy(output, (rot13 + j), 1);
+				turn += _copy(output, (rot13 + j), 1);
 				break;
 			}
-			turn += _memcpy(output, (sg + i), 1);
+			turn += _copy(output, (sg + i), 1);
 		}
 		turn += getneg_width(output, turn, flags, wid);
 		return (turn);

@@ -1,14 +1,5 @@
 #include "main.h"
 
-unsigned int link_di(va_list args, container_s * output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_b(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_u(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-unsigned int link_o(va_list args, container_s *output,
-		unsigned char flags, int wid, int prec, unsigned char len);
-
 /**
  * link_di - Converts an argument to a signed int & stores it
  * @args:  argument to be converted
@@ -19,7 +10,7 @@ unsigned int link_o(va_list args, container_s *output,
  * @output: A container_sr_s struct containing a character array.
  * Return: The number of bytes stored to the buffer.
  */
-unsigned int link_di(va_list args, container_s *output,
+unsigned int link_di(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	long int d, copy;
@@ -32,7 +23,7 @@ unsigned int link_di(va_list args, container_s *output,
 		d = (short)d;
 
 	if (SPACE_FLAG == 1 && d >= 0)
-		turn += _memcpy(output, &space, 1);
+		turn += _copy(output, &space, 1);
 	if (prec <= 0 && NEG_FLAG == 0)
 	{
 		(d == LONG_MIN) ? count += 19 :
@@ -43,19 +34,19 @@ unsigned int link_di(va_list args, container_s *output,
 		count += (PLUS_FLAG == 1 && d >= 0) ? 1 : 0;
 		count += (SPACE_FLAG == 1 && d >= 0) ? 1 : 0;
 		if (ZERO_FLAG == 1 && PLUS_FLAG == 1 && d >= 0)
-			turn += _memcpy(output, &plus, 1);
+			turn += _copy(output, &plus, 1);
 		if (ZERO_FLAG == 1 && d < 0)
-			turn += _memcpy(output, &neg, 1);
+			turn += _copy(output, &neg, 1);
 		zero = (ZERO_FLAG == 1) ? '0' : ' ';
 		for (wid -= count; wid > 0; wid--)
-			turn += _memcpy(output, &zero, 1);
+			turn += _copy(output, &zero, 1);
 	}
 	if (ZERO_FLAG == 0 && d < 0)
-		turn += _memcpy(output, &neg, 1);
+		turn += _copy(output, &neg, 1);
 	if (ZERO_FLAG == 0 && (PLUS_FLAG == 1 && d >= 0))
-		turn += _memcpy(output, &plus, 1);
+		turn += _copy(output, &plus, 1);
 	if (!(d == 0 && prec == 0))
-		turn += link_sbase(output, d, "0123456789",
+		turn += linker_ubase(output, d, "0123456789",
 				flags, 0, prec);
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);
@@ -72,7 +63,7 @@ unsigned int link_di(va_list args, container_s *output,
  * Return: The number of bytes stored
  */
 
-unsigned int link_b(va_list args, container_s *output,
+unsigned int link_b(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	unsigned int num;
@@ -81,7 +72,7 @@ unsigned int link_b(va_list args, container_s *output,
 
 	(void)len;
 
-	return (link_ubase(output, num, "01", flags, wid, prec));
+	return (linker_ubase(output, num, "01", flags, wid, prec));
 }
 
 /**
@@ -94,7 +85,7 @@ unsigned int link_b(va_list args, container_s *output,
  * @output: character array
  * Return: The number of bytes
  */
-unsigned int link_o(va_list args, container_s *output,
+unsigned int link_o(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	unsigned long int num;
@@ -109,10 +100,10 @@ unsigned int link_o(va_list args, container_s *output,
 		num = (unsigned short)num;
 
 	if (HASH_FLAG == 1 && num != 0)
-		turn += _memcpy(output, &zero, 1);
+		turn += _copy(output, &zero, 1);
 
 	if (!(num == 0 && prec == 0))
-		turn += link_ubase(output, num, "01234567",
+		turn += linker_ubase(output, num, "01234567",
 				flags, wid, prec);
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);
@@ -128,7 +119,7 @@ unsigned int link_o(va_list args, container_s *output,
  * @output: character array
  * return: The number of bytes stored to the buffer.
  */
-unsigned int link_u(va_list args, container_sr_s *output,
+unsigned int link_u(container_s *output, va_list args,
 			unsigned char flags, int wid, int prec, unsigned char len)
 {
 	unsigned long int num;
@@ -141,7 +132,7 @@ unsigned int link_u(va_list args, container_sr_s *output,
 	if (len == SHORT)
 		num = (unsigned short)num;
 	if (!(num == 0 && prec == 0))
-		turn += link_ubase(output, num, "0123456789",
+		turn += linker_ubase(output, num, "0123456789",
 				flags, wid, prec);
 	turn += getneg_width(output, turn, flags, wid);
 	return (turn);
