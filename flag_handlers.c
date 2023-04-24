@@ -1,12 +1,5 @@
 #include "main.h"
 
-unsigned char handleflag(const char *flag, char *index);
-unsigned char handlelen(const char *modifier, char *index);
-int handlewidth(va_list args, const char *modifier, char *index);
-int handleprec(va_list args, const char *modifier, char *index);
-unsigned int (*handle_specifiers(const char *specifier))
-	(va_list, container_s *, unsigned char, int, int, unsigned char);
-
 /**
  * handleflag - flags with value matching
  * @flag: pointer of string flags
@@ -145,7 +138,7 @@ int handleprec(va_list args, const char *modifier, char *index)
  */
 
 unsigned int (*handle_specifiers(const char *specifier))
-	(va_list, container_s *, unsigned char, int, int, unsigned char)
+	( container_s *, va_list, unsigned char, int, int, unsigned char)
 {
 	int i;
 	linker_l linkers[] = {

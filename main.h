@@ -103,8 +103,8 @@ unsigned char handleflag(const char *flags, char *index);
 unsigned char handlelen(const char *modifier, char *index);
 int handlewidth(va_list args, const char *modifier, char *index);
 int handleprec(va_list args, const char *modifier, char *index);
-unsigned int (*handle_specifiers(const char *specifier))(va_list,
-container_s *, unsigned char, int, int, unsigned char);
+unsigned int (*handle_specifiers(const char *specifier))(container_s *, 
+va_list, unsigned char, int, int, unsigned char);
 
 
 unsigned int get_width(container_s *output, unsigned int printed,
