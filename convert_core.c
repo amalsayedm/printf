@@ -55,8 +55,9 @@ unsigned int link_sbase(container_s *output, long int num, char *base,
  * @prec: A precision modifier
  * Return: The number of bytes
  */
-unsigned int link_ubase(container_s *output, unsigned long int num, char *base,
-		unsigned char flags, int wid, int prec)
+unsigned int linker_ubase(container_s *output,
+unsigned long int num, char *base,
+unsigned char flags, int wid, int prec)
 {
 	unsigned int size, turn = 1;
 	char digit, zero = '0', *XO = "0x";
@@ -64,7 +65,7 @@ unsigned int link_ubase(container_s *output, unsigned long int num, char *base,
 	for (size = 0; *(base + size);)
 		size++;
 	if (num >= size)
-		turn += link_ubase(output, num / size, base,
+		turn += linker_ubase(output, num / size, base,
 				flags, wid - 1, prec - 1);
 	else
 	{

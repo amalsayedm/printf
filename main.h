@@ -97,7 +97,6 @@ unsigned int linker_sbase(container_s *container, long int no, char *base,
 unsigned int linker_ubase(container_s *container, unsigned long int no,
 char *base, unsigned char flags, int wid, int prc);
 
-/**/
 
 unsigned char handleflag(const char *flags, char *index);
 unsigned char handlelen(const char *modifier, char *index);
