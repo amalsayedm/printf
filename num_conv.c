@@ -113,14 +113,14 @@ unsigned int link_o(container_s *output, va_list args,
 }
 
 /**
- * link_u - Converts an unsigned int argument to decimal and stores
+ * link_u - Converts an unsigned int argument to decimal and stores it
  * @args:  argument to be converted
  * @flags: Flag modifiers
  * @wid: A width modifier
  * @prec: A precision modifier
  * @len: A length modifier
  * @output: character array
- * return: The number of bytes stored to the buffer.
+ * return: The number of bytes stored to the buffer
  */
 unsigned int link_u(container_s *output, va_list args,
 			unsigned char flags, int wid, int prec, unsigned char len)
