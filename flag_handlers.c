@@ -7,7 +7,7 @@
  * Return: flag's value
 */
 
-	unsigned char handleflag(const char *flag, char *index)
+unsigned char handleflag(const char *flag, char *index)
 {
 	int i, j;
 	unsigned char turn = 0;
