@@ -1,13 +1,13 @@
 #include "main.h"
 
-unsigned int link_sbase(container_s * output, long int num, char *base,
+unsigned int linker_sbase(container_s * output, long int num, char *base,
 		unsigned char flags, int wid, int prec);
-unsigned int link_ubase(container_s *output,
+unsigned int linker_ubase(container_s *output,
 		unsigned long int num, char *base,
 		unsigned char flags, int wid, int prec);
 
 /**
- * link_sbase - Converts a signed long to an inputted base and stores it
+ * linker_sbase - Converts a signed long to an inputted base and stores it
  * @output: containing a character array
  * @num: A signed long to be converted
  * @base: A pointer to a string
@@ -16,7 +16,7 @@ unsigned int link_ubase(container_s *output,
  * @prec: A precision modifier*
  * Return: The number of bytes stored to the buffer.
  */
-unsigned int link_sbase(container_s *output, long int num, char *base,
+unsigned int linker_sbase(container_s *output, long int num, char *base,
 		unsigned char flags, int wid, int prec)
 {
 	int size;
@@ -46,7 +46,7 @@ unsigned int link_sbase(container_s *output, long int num, char *base,
 }
 
 /**
- * link_ubase - Converts an unsigned long to an inputted base &stores
+ * linker_ubase - Converts an unsigned long to an inputted base &stores
  * @output: character array
  * @num: An unsigned long to be converted.
  * @base: A pointer to a string
@@ -55,7 +55,7 @@ unsigned int link_sbase(container_s *output, long int num, char *base,
  * @prec: A precision modifier
  * Return: The number of bytes
  */
-unsigned int link_ubase(container_s *output, unsigned long int num, char *base,
+unsigned int linker_ubase(container_s *output, unsigned long int num, char *base,
 		unsigned char flags, int wid, int prec)
 {
 	unsigned int size, turn = 1;
