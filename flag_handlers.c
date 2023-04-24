@@ -145,7 +145,7 @@ int handleprec(va_list args, const char *modifier, char *index)
  */
 
 unsigned int (*handle_specifiers(const char *specifier))
-	(va_list, container_s *, unsigned char, int, int, unsigned char)
+	(container_s *, va_list, unsigned char, int, int, unsigned char)
 {
 	int i;
 	linker_l linkers[] = {
@@ -166,10 +166,10 @@ unsigned int (*handle_specifiers(const char *specifier))
 		{0, NULL}
 	};
 
-	for (i = 0; linkers[i].func; i++)
+	for (i = 0; linkers[i]._func; i++)
 	{
 		if (linkers[i].specifier == *specifier)
-			return (linkers[i].func);
+			return (linkers[i]._func);
 	}
 	return (NULL);
 }
