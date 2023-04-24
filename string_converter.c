@@ -157,9 +157,10 @@ unsigned int link_R(container_s *output, va_list args,
 				turn += _copy(output, (rot13 + j), 1);
 				break;
 			}
-			turn += _copy(output, (sg + i), 1);
 		}
+			if (j == 52)
+			turn += _copy(output, (sg + i), 1);
+	}
 		turn += getneg_width(output, turn, flags, wid);
 		return (turn);
-	}
 }
