@@ -17,7 +17,7 @@ unsigned int link_di(container_s *output, va_list args,
 	unsigned int turn = 0, count = 0;
 	char zero, space = ' ', neg = '-', plus = '+';
 
-	if(len == LONG)
+	if (len == LONG)
 		d = va_arg(args, long int);
 	else
 		d = va_arg(args, int);

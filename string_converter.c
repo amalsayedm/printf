@@ -91,8 +91,7 @@ unsigned int link_S(container_s *output, va_list args,
  * @output: character array.
  * Return: The number of bytes stored
  */
-
-unsigned int link_r(container_s *output, va_list args, 
+unsigned int link_r(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	char *sg, *empty = "(null)";

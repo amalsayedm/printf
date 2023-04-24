@@ -1,6 +1,6 @@
 #include "main.h"
 
-unsigned int link_x(container_s * output,va_list args, 
+unsigned int link_x(container_s * output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len);
 
 /**
@@ -14,7 +14,7 @@ unsigned int link_x(container_s * output,va_list args,
  * Return: The number of bytes stored
  */
 
-unsigned int link_x(container_s *output, va_list args, 
+unsigned int link_x(container_s *output, va_list args,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
 	unsigned long int num;

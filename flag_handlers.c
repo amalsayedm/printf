@@ -138,7 +138,7 @@ int handleprec(va_list args, const char *modifier, char *index)
  */
 
 unsigned int (*handle_specifiers(const char *specifier))
-	( container_s *, va_list, unsigned char, int, int, unsigned char)
+	(container_s *, va_list, unsigned char, int, int, unsigned char)
 {
 	int i;
 	linker_l linkers[] = {
